@@ -1,0 +1,7 @@
+Please flow below steps for project run/execution:
+
+1- Clone repo 'TODO-List-Project'
+2- Open into VS Code
+3- Run Command - 'npm install' // Install Node Package Manager
+4- Run Command - ' ng serve'   // Run TODO-List Application
+5- Open http://localhost:4200/ link in your browser.
