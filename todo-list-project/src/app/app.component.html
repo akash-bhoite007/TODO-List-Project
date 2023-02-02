@@ -1,0 +1,61 @@
+<div class="fluid-container p-4">
+  <div class="col-md-12 header">
+    <div class="txtClass">TODO List</div>
+  </div>
+
+  <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" novalidate>
+    <div class="col-md-12 row pt-4">
+      <div class="col-md-8">
+
+        <div class="form-group">
+          <label *ngIf="!this.editFlag">Add Items</label>
+          <label *ngIf="this.editFlag">Edit Items</label>
+          <input id="itemName"  type="text" (keyup)="onChange($event)" class="form-control" name="itemName"
+            [(ngModel)]="form.itemName" required  maxlength="20" #itemName="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && itemName.errors }" />
+          <div *ngIf="f.submitted && itemName.errors" class="invalid-feedback">
+            <div *ngIf="itemName.errors['required']">Item name is required</div>
+            
+            <div *ngIf="itemName.errors['maxlength']">
+              Item name must be at most 20 characters
+            </div>
+          </div>
+          <div *ngIf="itemLengthFlag" style="color: red;">
+           You can't add more than 5 TODO items in the list
+          </div>
+          <div *ngIf="itemCharLengthFlag" style="color: red;">
+            Item should be a string whose length is not more than 20 characters
+           </div>
+        </div>
+
+
+      </div>
+      <div class="col-md-4">
+        <div class="form-group" *ngIf="!this.editFlag">
+          <button type="submit" style="margin-top: 28px;" class="btn btn-success">Add</button>
+        </div>
+        <div class="form-group" *ngIf="this.editFlag">
+          <button type="submit" style="margin-top: 28px;" (click)="onUpdate()" class="btn btn-secondary">Edit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="pt-4">
+    <label>Tasks</label>
+    <table class="table table-bordered">
+
+      <tbody class="">
+        <tr *ngFor="let item of itemList; let i = index">
+          <td>{{item.itemName}}</td>
+          <td style="width: 15%;"> <button type="button" (click)="onEdit(item.itemName,i)" class="btn btn-secondary"
+              style="margin-right: 4px;">Edit</button> <button type="button" class="btn btn-danger"
+              (click)="onDelete(item.itemName,i)">Delete</button>
+
+
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
